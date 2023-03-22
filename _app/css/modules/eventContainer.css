@@ -1,0 +1,32 @@
+.event__container {
+	display: flex;
+	justify-content: center;
+}
+
+.event__container-card {
+	display: flex;
+	background-color: grey;
+	height: 200px;
+	width: 100%;
+}
+
+.event__image {
+	width: 50%;
+	object-fit: cover;
+}
+
+.event__content {
+	display: flex;
+	flex-direction: column;
+}
+
+.event__artist {
+	color: aquamarine;
+	font-family: 'Inder', sans-serif;
+	font-size: 3.5vw;
+	text-decoration: underline;
+}
+
+.event__location {
+	color: white;
+}
