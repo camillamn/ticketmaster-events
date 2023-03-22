@@ -1,0 +1,14 @@
+.header {
+	grid-column: 1 / 13;
+	width: 100%;
+	margin-bottom: 1rem;
+}
+
+.header__text {
+	font-family: 'Inder', sans-serif;
+}
+
+.header__city {
+	font-family: 'Inder', sans-serif;
+	color: #7fffd4;
+}
