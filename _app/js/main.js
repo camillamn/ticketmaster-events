@@ -1,3 +1,3 @@
-import FetchEvents from "./modules/fetchEvents.js";
+import fetchEvents from "./modules/fetchEvents.js";
 
-FetchEvents();
+fetchEvents();
