@@ -1,42 +1,39 @@
 import { apikey } from "../env.js";
+import renderEvents from "./renderEvents.js";
 
-// 
-export default async function FetchEvents() {
-	
-	// datamodel
-	const baseUrl = 'https://app.ticketmaster.com/discovery/v2/events.json';
-	const city = 'bergen';
-	const sort = 'date,asc';
-	const perPage = 30;
-	let currentPage = 1;
-	const options = {
-		method: "GET"
-	};
+const baseUrl = 'https://app.ticketmaster.com/discovery/v2/events.json';
+const city = 'bergen';
+const sort = 'date,asc';
+const perPage = 30;
+let currentPage = 1;
+const options = {
+	method: "GET"
+};
 
-	const endpoint = `
-		${baseUrl}
-		?apikey=${apikey}
-		&locale=*
-		&city=${city}
-		&classificationName=music
-		&size${perPage}
-		&page=${currentPage}
-		&sort=${sort}
-		`;
-	
-	const response = await fetch(endpoint, options);
+const endpoint = `
+	${baseUrl}
+	?apikey=${apikey}
+	&locale=*
+	&city=${city}
+	&classificationName=music
+	&size${perPage}
+	&page=${currentPage}
+	&sort=${sort}
+	`;
 
+export default async function fetchEvents() {
 	try {
-		await handleResponse(response)
+		const response = await fetch(endpoint, options);
+		const data = await handleResponse(response);
+		return data._embedded.events;
 	} catch (error) {
-		console.log(error)
+		handleError(error);
 	}
 }
 
-async function handleResponse(response) {
+function handleResponse(response) {
 	if(response.ok) {
-		 const data = await response.json();
-		 return data._embedded.events;
+		return response.json();
 	} else if (response.status === 404) {
 		 throw new Error('Url not existing');
 	} else if (response.status === 401) {
@@ -56,3 +53,7 @@ function handleError(error) {
 	warningElement.classList.toggel('hidden');
 	warningElement.textContent = error;
 }
+
+fetchEvents().then(events => {
+	renderEvents(events);
+});
