@@ -1,7 +1,7 @@
 import { apikey } from "../env.js";
 import renderEvents from "./renderEvents.js";
 
-const baseUrl = 'https://app.ticketmaster.com/discovery/v2/events';
+const baseUrl = 'https://app.ticketmaster.com/discovery/v2/events.json';
 const city = 'bergen';
 const sort = 'date,asc';
 const perPage = 30;
