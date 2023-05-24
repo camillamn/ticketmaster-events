@@ -1,11 +1,16 @@
 body {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	padding: 1rem;
-	background-color: black;
+	padding: var(--gap-padding);
+	background-color: var(--color-background);
+	font-family: 'Inder', sans-serif;
 }
 
 h1 {
-	color: cornsilk;
+	color: var(--color-font-logo);
+}
+
+@media screen and (min-width: 1920px) {
+	body {
+		max-width: 1920px;
+		margin: 0 auto;
+	}
 }

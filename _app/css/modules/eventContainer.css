@@ -1,5 +1,4 @@
 .event__container-card {
-	background-color: lightgray;
 	height: 100%;
 }
 
@@ -19,11 +18,18 @@
 }
 
 .event__artist {
-	color: aquamarine;
 	font-family: 'Inder', sans-serif;
+	font-weight: 600;
 	font-size: 2vw;
+	padding: var(--gap-padding) 0;
 }
 
 .event__location {
-	color: white;
+	color: var(--color-font-highlight);
+	padding-top: var(--gap-padding);
+}
+
+.event__link {
+	padding-top: var(--gap-padding);
+	color: var(--color-font);
 }
