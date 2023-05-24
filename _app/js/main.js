@@ -1,3 +1,3 @@
-import fetchEvents from "./modules/fetchEvents.js";
+import renderEvents from "./modules/renderEvents.js";
 
-fetchEvents();
+await renderEvents();
