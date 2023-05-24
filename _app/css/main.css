@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inder&display=swap');
 
 @import './reset.css';
+@import './variables.css';
+@import './grid.css';
 @import './base.css';
 
+@import './modules/box.css';
 @import './modules/header.css';
 @import './modules/eventContainer.css';
