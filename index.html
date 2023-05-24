@@ -10,13 +10,16 @@
 	</head>
 
 	<body>
-		<header>
-			<h1 class="header__text">Ticketmaster</h1>
+		<header class="header grid">
+			<h1 class="header__text grid__column--12">Ticketmaster</h1>
 			<h2 class="header__city">Bergen</h2>
 		</header>
 
 		<main>
-			<div class="event__container" id="event-container"></div>
+			<p class=" warning hidden"></p>
+			<section class="event__container grid"></section>
+
+			<div class="pagination__container" id="pagination-container"></div>
 		</main>
 
 		<footer></footer>
