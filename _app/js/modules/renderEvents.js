@@ -1,37 +1,96 @@
-export default function renderEvents(events) {
+import fetchEvents from "./fetchEvents.js";
 
-	const eventContainer = document.getElementById('event-container');
+export default async function renderEvents() {
+	const eventContainer = document.querySelector('.event__container');
 
-	eventContainer.innerHTML = events.map(event => {
-		let imageSrc = "";
-			for (let i = 0; i < event.images.length; i++) {
-				if (event.images[i].width >= 500) {
-					imageSrc = event.images[i].url;
-					break;
-				}
-			}
-	return `
-		<div class="event__container-card">
-	
-			<figure class="event__image-box">
-				<img class="event__image "src="${imageSrc}" alt="${event.name}">
-			</figure>
+	const events = await fetchEvents();
 
-			<div class="event__content">
-				<h2>${event.name}</h2>
-					<p class="event__artist">${event._embedded.attractions[0].name}</p>
-					<p class="event__date"> ${event.dates.start.localDate}</p>
-					<p class="event__time"> ${event.dates.start.localTime}</p>
-					<p class="event__location"> ${event._embedded.venues[0].name}</p>
+	console.log(events)
 
-				<button alt="Order tickets here"> 
-					<a class="event__order-ticket" href="${event.url}">
-						Order ticket(s) here
-					</a>
-				</button>
+	function createEventItemDOM() {
+		for (const event of events) {
+		const eventCard = document.createElement('div');
+		const eventImage = document.createElement('figure');
+		const eventImg = document.createElement('img');
+		const eventContent = document.createElement('div');
+		const eventName = document.createElement('p');
+		const eventArtist = document.createElement('h3');
+		const eventDate = document.createElement('p');
+		const eventTime = document.createElement('p');
+		const eventLocation = document.createElement('p');
+		const eventButton = document.createElement('button');
+		const eventLink = document.createElement('a');
 
-			</div>
+		eventCard.className = 'event__container-card grid__column--4 box';
+		eventImage.className = 'event__image';
+		eventImg.className = 'event__img';
+		eventContent.className = 'event__content';
+		eventName.className = 'event__name';
+		eventArtist.className = 'event__artist';
+		eventDate.className = 'event__date';
+		eventTime.className = 'event__time';
+		eventLocation.className = 'event__location';
+		eventButton.className = 'event__button';
+		eventLink.className = 'event__link';
 
-		</div>
-	`}).join('');
+		// use the first image that is wider than 400
+		const selectedImg = event.images.find(image => image.width >= 400);
+		if (selectedImg) {
+			eventImg.src = selectedImg.url;
+		} else {
+			const noImage = document.createElement('p');
+			noImage.textContent= 'No image available';
+			eventImage.appendChild(noImage);
+		}
+
+		// format the date to norwegian 
+		const dateOptions = {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		};
+		const startDate = new Date(event.dates.start.localDate);
+		const formattedDate = startDate.toLocaleDateString('nb-NO', dateOptions);
+		eventDate.innerText = formattedDate;
+
+		// format time, return empty string if no time is available
+		if (event.dates.start.localTime) {
+			const timeOptions = {
+				minute: '2-digit',
+				hour: '2-digit'
+			};
+		const startTime = new Date(`${event.dates.start.localDate}T${event.dates.start.localTime}`);
+		const formattedTime = startTime.toLocaleTimeString('nb-NO', timeOptions);
+		eventTime.innerText = formattedTime;
+		} else {
+			eventTime.innerText = '';
+		}
+
+		eventName.innerText = event.name;
+		eventArtist.innerText = event._embedded.attractions[0].name;
+		eventLocation.innerText = event._embedded.venues[0].name;
+
+		eventLink.innerText = 'Klikk her for å bestille billetter';
+		eventLink.href = event.url;
+		eventLink.target = '_blank';
+
+		eventImage.appendChild(eventImg);
+
+		eventContent.appendChild(eventName);
+		eventContent.appendChild(eventArtist);
+		eventContent.appendChild(eventDate);
+		eventContent.appendChild(eventTime);
+		eventContent.appendChild(eventLocation);
+		eventContent.appendChild(eventLink);
+		eventCard.appendChild(eventImage);
+		eventCard.appendChild(eventContent);
+		eventContainer.appendChild(eventCard);
+	}
+}
+	// return eventContainer;
+
+	function renderHTML() {
+		createEventItemDOM();
+	}
+	renderHTML();
 }
