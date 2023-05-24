@@ -13,24 +13,22 @@ export default async function renderEvents() {
 		const eventImage = document.createElement('figure');
 		const eventImg = document.createElement('img');
 		const eventContent = document.createElement('div');
-		const eventName = document.createElement('p');
 		const eventArtist = document.createElement('h3');
+		const eventName = document.createElement('p');
 		const eventDate = document.createElement('p');
 		const eventTime = document.createElement('p');
 		const eventLocation = document.createElement('p');
-		const eventButton = document.createElement('button');
 		const eventLink = document.createElement('a');
 
 		eventCard.className = 'event__container-card grid__column--4 box';
 		eventImage.className = 'event__image';
 		eventImg.className = 'event__img';
 		eventContent.className = 'event__content';
-		eventName.className = 'event__name';
 		eventArtist.className = 'event__artist';
+		eventName.className = 'event__name';
 		eventDate.className = 'event__date';
 		eventTime.className = 'event__time';
 		eventLocation.className = 'event__location';
-		eventButton.className = 'event__button';
 		eventLink.className = 'event__link';
 
 		// use the first image that is wider than 400
@@ -42,6 +40,7 @@ export default async function renderEvents() {
 			noImage.textContent= 'No image available';
 			eventImage.appendChild(noImage);
 		}
+		eventImg.alt = event.name;
 
 		// format the date to norwegian 
 		const dateOptions = {
@@ -66,18 +65,18 @@ export default async function renderEvents() {
 			eventTime.innerText = '';
 		}
 
-		eventName.innerText = event.name;
 		eventArtist.innerText = event._embedded.attractions[0].name;
+		eventName.innerText = `(${event.name})`;
 		eventLocation.innerText = event._embedded.venues[0].name;
 
-		eventLink.innerText = 'Klikk her for å bestille billetter';
+		eventLink.innerText = 'Finn billetter her';
 		eventLink.href = event.url;
 		eventLink.target = '_blank';
 
 		eventImage.appendChild(eventImg);
 
-		eventContent.appendChild(eventName);
 		eventContent.appendChild(eventArtist);
+		eventContent.appendChild(eventName);
 		eventContent.appendChild(eventDate);
 		eventContent.appendChild(eventTime);
 		eventContent.appendChild(eventLocation);
