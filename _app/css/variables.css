@@ -1,4 +1,11 @@
 :root {
+	--color-box: #D9D9D9;
+	--color-background: black;
+
+	--color-font: var(--color-background);
+	--color-font-logo: #FFFFFF;
+	--color-font-highlight: #393939;
+
 	--gap-column: 1rem;
 	--gap-padding: 1rem;
 	--gap-row: 1rem;
