@@ -1,0 +1,10 @@
+## documentation of the process
+
+# Sprint 1
+- Create an API key for ticketmaster
+- set-up project structure
+- fetch the events from ticketmaster
+
+# Sprint 2
+- render the events
+- add stylesheets
